@@ -5,8 +5,8 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 800), "Moving Circle", sf::Style::Default);
     window.setFramerateLimit(60);
 
-    sf::CircleShape circle(100);
-    circle.setPosition(0, 400); 
+    sf::CircleShape circle(30); 
+    circle.setPosition(400, 400); 
     circle.setFillColor(sf::Color::Green);
 
     float speed = 1.5f;
@@ -20,19 +20,22 @@ int main()
                 window.close();
         }
 
-        circle.move(speed, 0);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            circle.move(-speed, 0);
 
-        if (circle.getPosition().x > 800)
-        {
-            circle.setPosition(-200, 400);
-        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            circle.move(speed, 0);
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            circle.move(0, -speed); 
+        
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            circle.move(0, speed); 
+        
+
         window.clear(sf::Color::Black);
         window.draw(circle);
         window.display();
     }
 
 }
-
-
-
-//g++ 1.cpp -lsfml-graphics -lsfml-window -lsfml-system
