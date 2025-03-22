@@ -1,9 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream> 
+#include <string> 
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Hello World", sf::Style::Default);
+    sf::RenderWindow window(sf::VideoMode(800, 800), "Mouse", sf::Style::Default);
     window.setFramerateLimit(60);
 
     sf::Font font;
@@ -16,10 +17,9 @@ int main()
 
     sf::Text text;
     text.setFont(font); 
-    text.setString(L"Привет Мир!"); 
-    text.setCharacterSize(50); 
+    text.setCharacterSize(30); 
     text.setFillColor(sf::Color(70, 160, 100)); 
-    text.setPosition(300, 200); 
+    text.setPosition(100, 100); 
 
     while (window.isOpen())
     {
@@ -30,9 +30,16 @@ int main()
                 window.close();
         }
 
+        sf::Vector2i p = sf::Mouse::getPosition(window);
+        sf::Vector2f q = window.mapPixelToCoords(p);
+
+        std::string c = " (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")," +
+                                      "(" + std::to_string(q.x) + ", " + std::to_string(q.y) + ")";
+
+        text.setString(c);
+
         window.clear(sf::Color::Black);
         window.draw(text);
         window.display();
     }
-
 }
